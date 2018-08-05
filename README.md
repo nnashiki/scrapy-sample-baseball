@@ -129,4 +129,11 @@ $ scrapy crawl {batter|pitcher} -a year=2017 -a league=2
 ```
 docker build -t scrapy:0.1 .
 docker run -it --rm --name scrapy scrapy:0.1 bash
+
+
+
+sqlite3 baseball.db
+select * from pitcher;
+select * from batter;
+.exit
 ```
