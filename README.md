@@ -123,3 +123,10 @@ $ scrapy crawl {batter|pitcher} -a year=2017 -a league=2
 カラムの意味と解説はItemと全く同じです(id値とcreate_date/update_dateがあるぐらいの違い)
 
 なお,indexは全く貼っていないので必要な方は随時書き換えてもらえると.
+
+
+# 起動
+```
+docker build -t scrapy:0.1 .
+docker run -it --rm --name scrapy scrapy:0.1 bash
+```
