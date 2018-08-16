@@ -9,11 +9,13 @@ LABEL  maintainer "nnashiki <n.nashiki.work@gmail.com>"
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y 	sqlite3\
-                        tree
+                        tree\
+                        mysql-client
 
 # pipでインストール
 RUN pip install -U pip
-RUN pip install scrapy==1.4
+RUN pip install scrapy==1.4\
+                mysqlclient
 
 # アプリケーションのコードをコンテナのappに追加
 ADD baseball /usr/src/app
