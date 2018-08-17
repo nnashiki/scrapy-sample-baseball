@@ -28,4 +28,4 @@ CREATE TABLE IF NOT EXISTS `batter` (
       `obp` FLOAT,
       `create_date` DATETIME NOT NULL ,
       `update_date` DATETIME DEFAULT CURRENT_TIMESTAMP
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
