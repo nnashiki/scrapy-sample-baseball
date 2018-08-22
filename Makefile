@@ -9,3 +9,7 @@ build:
 
 crawl: build
 	docker run -it --rm --name scrapy --link baseball_db:baseball_db scrapy:0.1 bash
+
+upjupyter:
+	docker build -t jupyter-japanese:0.1  -f `pwd`/jupyter/Dockerfile .
+	docker run -it --rm --name notebook -p 8888:8888 jupyter-japanese:0.1
