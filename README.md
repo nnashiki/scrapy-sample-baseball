@@ -127,7 +127,7 @@ $ scrapy crawl {batter|pitcher} -a year=2017 -a league=2
 
 # 起動
 ```
-docker build -t scrapy:0.1 .
+docker build -t scrapy:0.1 -f `pwd`/baseball/Dockerfile .
 docker run -it --rm --name scrapy --link baseball_db:baseball_db scrapy:0.1 bash
 
 mysql -h 127.0.0.1 -u baseball_user baseball_db -p 
