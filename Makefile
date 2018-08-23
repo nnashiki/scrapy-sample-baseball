@@ -12,4 +12,4 @@ crawl: build
 
 upjupyter:
 	docker build -t jupyter-japanese:0.1  -f `pwd`/jupyter/Dockerfile .
-	docker run -it --rm --name notebook -p 8888:8888 jupyter-japanese:0.1
+	docker run -it --rm --name notebook -p 8888:8888 --link baseball_db:baseball_db jupyter-japanese:0.1
