@@ -190,17 +190,54 @@ teamData = []
 
 try:
     with db as cursor:
-        sql = "SELECT * FROM batter where ab > 300"
+        sql = "SELECT * FROM batter where ab > 300 and ba > 0.3"
         cursor.execute(sql)
  
         dbdata = cursor.fetchall()
         for rows in dbdata:
             teamData.append([rows['name'],rows['ba'],rows['hr']])
- 
 finally:
     db.close()
     
 for row in teamData:
     ax.scatter(row[1],row[2],alpha=0.5)
     ax.annotate(row[0],xy=(row[1],row[2]),size=10)
+```
+
+dataframe
+
+```
+import pymysql
+import pandas as pd
+db = pymysql.connect(host=  '172.17.0.2',
+                             user='baseball_user',
+                             password='baseball_pass',
+                             db='baseball_db',
+                             charset='utf8',
+                             cursorclass=pymysql.cursors.DictCursor)
+
+from matplotlib import pyplot as plt
+plt.style.use('ggplot')
+
+fig = plt.figure(figsize=(20, 20))
+
+# プロットを1つ作成
+ax = fig.add_subplot(111)
+# ラベルをつける
+ax.set_xlabel('打率')
+ax.set_ylabel('ホームラン')
+teamData = []
+
+try:
+    with db as cursor:
+        sql = "SELECT * FROM batter where ab > 300 and ba > 0.3"
+        df = pd.read_sql_query(sql,db)
+finally:
+    db.close()
+
+# 打率とHR
+for _, row in df.iterrows():
+    ax.scatter(row['ba'],row['hr'],alpha=0.5)
+    ax.annotate(str(row['year'])+'-'+row['name'],xy=(row['ba'],row['hr']),size=15)
+
 ```
