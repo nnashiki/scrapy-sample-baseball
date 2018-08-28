@@ -13,4 +13,8 @@ RUN pip install --upgrade setuptools
 RUN pip install pymysql \
                 pandas \
                 matplotlib \
-                ipython-sql
+                ipython-sql \
+                RISE
+
+RUN jupyter-nbextension install rise --py --sys-prefix
+RUN jupyter-nbextension enable rise --py --sys-prefix
