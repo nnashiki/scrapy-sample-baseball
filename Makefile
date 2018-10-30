@@ -4,6 +4,9 @@ initdb:
 	- docker stop ${DB}
 	docker run --rm --name ${DB} -e MYSQL_ROOT_PASSWORD=baseball_pass -e MYSQL_USER=baseball_user -e MYSQL_PASSWORD=baseball_pass -e MYSQL_DATABASE=${DB} -d -v `pwd`/mysql/db_init:/docker-entrypoint-initdb.d -v `pwd`/mysql/cnf:/etc/mysql/conf.d -p 3306:3306 mysql:5.7
 
+dump-db:
+	mysqldump -u baseball_user -h 127.0.0.1 -p baseball_db > dump_test.sql
+
 build:
 	docker build -t scrapy:0.1 -f `pwd`/baseball/Dockerfile .
 
