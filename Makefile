@@ -14,7 +14,7 @@ build:
 	docker build -t scrapy:0.1 -f `pwd`/baseball/Dockerfile .
 
 crawl: build
-	docker run -it --rm --name scrapy --link baseball_db:baseball_db scrapy:0.1 bash
+	docker run -it --rm --name scrapy --link baseball_db:baseball_db -v `pwd`/baseball:/usr/src/app scrapy:0.1 bash
 
 up-jupyter:
 	docker build -t jupyter-japanese:0.1  -f `pwd`/jupyter/Dockerfile .
