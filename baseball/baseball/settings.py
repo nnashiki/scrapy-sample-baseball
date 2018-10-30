@@ -69,9 +69,13 @@ CONCURRENT_REQUESTS_PER_IP = 0
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'baseball.pipelines.BaseballPipeline': 200,  # DB保存用のミドルウェア
-#}
+
+
+# 自作 pipeline に繋げる
+ITEM_PIPELINES = {
+    'baseball.pipelines.MyImagesPipeline': 1,
+    'baseball.pipelines.BaseballPipeline': 200 # DB保存用のミドルウェア
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
