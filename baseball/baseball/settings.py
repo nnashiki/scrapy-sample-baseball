@@ -10,7 +10,7 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
 # 自作 pipeline に繋げる
-IMAGE_PIPELINES = {'baseball.pipelines.MyImagesPipeline': 1}
+ITEM_PIPELINES = {'baseball.pipelines.MyImagesPipeline': 1}
 # データの保存場所
 IMAGES_STORE = 'images'
 # リンクを辿る深さを指定

@@ -272,8 +272,6 @@ import os
 class MyImagesPipeline(ImagesPipeline):
     def item_completed(self, results, item, info):
 
-        import pdb;
-        pdb.set_trace()
         # DL できたファイルのパス
         file_paths = [x['path'] for ok, x in results if ok]
 
