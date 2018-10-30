@@ -7,6 +7,9 @@ initdb:
 dump-db:
 	mysqldump -u baseball_user -h 127.0.0.1 -p baseball_db > dump_test.sql
 
+connect-db:
+	mysql -u baseball_user -h 127.0.0.1 -p baseball_db
+
 build:
 	docker build -t scrapy:0.1 -f `pwd`/baseball/Dockerfile .
 
