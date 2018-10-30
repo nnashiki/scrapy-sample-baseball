@@ -262,3 +262,32 @@ class BaseballPipeline(object):
         """
         self.cursor.close
         self.connector.close
+
+from scrapy.pipelines.images import ImagesPipeline
+from .settings import IMAGES_STORE
+import shutil
+import os
+
+
+class MyImagesPipeline(ImagesPipeline):
+    def item_completed(self, results, item, info):
+
+        import pdb;
+        pdb.set_trace()
+        # DL できたファイルのパス
+        file_paths = [x['path'] for ok, x in results if ok]
+
+        # ドメインごとのフォルダに move
+        for file_path in file_paths:
+            img_home = IMAGES_STORE
+            full_path = img_home + "/" + file_path
+            domain_home = img_home + "/" + item['domain']
+
+            os.makedirs(domain_home, exist_ok=True)
+            # DL した結果同じファイルのことがある
+            if os.path.exists(domain_home + '/' + os.path.basename(full_path)):
+                continue
+            shutil.move(full_path, domain_home)
+
+        # parse() の続きに戻る
+        return item

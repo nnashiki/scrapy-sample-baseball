@@ -14,7 +14,8 @@ RUN apt-get install -y 	tree\
 # pipでインストール
 RUN pip install -U pip
 RUN pip install scrapy \
-                mysqlclient
+                mysqlclient \
+                pillow
 
 # アプリケーションのコードをコンテナのappに追加
 ADD baseball /usr/src/app

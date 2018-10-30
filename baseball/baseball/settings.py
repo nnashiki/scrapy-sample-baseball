@@ -9,6 +9,13 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
+# 自作 pipeline に繋げる
+IMAGE_PIPELINES = {'baseball.pipelines.MyImagesPipeline': 1}
+# データの保存場所
+IMAGES_STORE = 'images'
+# リンクを辿る深さを指定
+DEPTH_LIMIT = 1
+
 BOT_NAME = 'baseball'
 
 SPIDER_MODULES = ['baseball.spiders']
@@ -64,9 +71,9 @@ CONCURRENT_REQUESTS_PER_IP = 0
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'baseball.pipelines.BaseballPipeline': 100,  # DB保存用のミドルウェア
-}
+#ITEM_PIPELINES = {
+#    'baseball.pipelines.BaseballPipeline': 200,  # DB保存用のミドルウェア
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
