@@ -12,7 +12,7 @@ class ImageSpider(scrapy.Spider):
       # 全てを対象
       allowed_domains = ['npb.jp']
       # 最初に見に行くサイト
-      start_urls = ['http://npb.jp/bis/players/11313888.html']
+      start_urls = ['http://npb.jp/bis/teams']
 
       # response　を毎回処理する関数
       def parse(self, response):
@@ -24,8 +24,11 @@ class ImageSpider(scrapy.Spider):
 
               # リンクを辿る
               for link in response.xpath('//@href').extract():
-                  if re.match(r"^http?://", link):
+                  if re.match(r"^http?://", link) or re.match(r"^https?://", link):
                       yield scrapy.Request(link, callback=self.parse)
+                  else:
+                      yield scrapy.Request(response.urljoin(link), callback=self.parse)
+
           except NotSupported:
               # GET のレスポンスが txt じゃなかった場合
               # Spiders の logging 機能が用意されているのでそれを利用
@@ -39,8 +42,8 @@ class ImageSpider(scrapy.Spider):
           domain = parsed_url.netloc
 
           # 同じ Domain は一回しかチェックしない
-          if domain in self.tracked_domains:
-              return
+          # if domain in self.tracked_domains:
+          #     return
 
           self.tracked_domains.append(domain)
 

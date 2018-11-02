@@ -10,7 +10,7 @@ dump-db:
 connect-db:
 	mysql -u baseball_user -h 127.0.0.1 -p baseball_db
 
-build:
+build: init-db
 	docker build -t scrapy:0.1 -f `pwd`/baseball/Dockerfile .
 
 crawl: build
