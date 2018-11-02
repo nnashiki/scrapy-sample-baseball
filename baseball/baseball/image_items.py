@@ -7,7 +7,7 @@
 import scrapy
 from scrapy import Item, Field
 
-class TutorialItem(scrapy.Item):
+class ImageItem(scrapy.Item):
     # define the fields for your item here like:
     domain = Field()
     title = Field()

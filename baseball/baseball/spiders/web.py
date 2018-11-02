@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from ..tutorial_items import TutorialItem
+from ..image_items import ImageItem
 import re
 from scrapy.exceptions import NotSupported
 from urllib.parse import urlparse
@@ -44,7 +44,7 @@ class WebSpider(scrapy.Spider):
 
           self.tracked_domains.append(domain)
 
-          item = TutorialItem()
+          item = ImageItem()
           item['domain'] = domain
 
           # title の抽出
