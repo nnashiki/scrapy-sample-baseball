@@ -5,8 +5,8 @@ import re
 from scrapy.exceptions import NotSupported
 from urllib.parse import urlparse
 
-class WebSpider(scrapy.Spider):
-      name = 'web'
+class ImageSpider(scrapy.Spider):
+      name = 'image'
       # 見つけたドメインを入れる
       tracked_domains = []
       # 全てを対象
