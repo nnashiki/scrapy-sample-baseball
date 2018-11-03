@@ -11,8 +11,10 @@ class ImageSpider(scrapy.Spider):
       tracked_domains = []
       # 全てを対象
       allowed_domains = ['npb.jp']
-      # 最初に見に行くサイト
-      start_urls = ['http://npb.jp/bis/teams']
+
+      def __init__(self, category=None, *args, **kwargs):
+          super(ImageSpider, self).__init__(*args, **kwargs)
+          self.start_urls = ['http://npb.jp/bis/teams/%s' % category]
 
       # response　を毎回処理する関数
       def parse(self, response):
