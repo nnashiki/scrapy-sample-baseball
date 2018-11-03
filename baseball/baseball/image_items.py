@@ -12,6 +12,9 @@ class ImageItem(scrapy.Item):
     domain = Field()
     title = Field()
     image_urls = Field()
+    image_directory_name = Field()
     pass
 
+    def __unicode__(self):
+        return repr(self).decode('unicode_escape')
 

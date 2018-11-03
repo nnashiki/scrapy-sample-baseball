@@ -51,9 +51,11 @@ class ImageSpider(scrapy.Spider):
 
           item = ImageItem()
           item['domain'] = domain
+          item['image_directory_name'] = 'npb'
 
           # title の抽出
-          title = response.xpath(r'//html/head/title/text()').extract()
+          title = response.xpath("//*[@id=\"pc_v_photo\"]/img/@title").extract()
+
           if len(title) > 0:
               item['title'] = title[0]
           else:

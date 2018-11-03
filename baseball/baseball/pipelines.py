@@ -269,23 +269,29 @@ import shutil
 import os
 
 
+import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+from scrapy.utils.misc import md5sum
+
+# refer: https://stackoverflow.com/questions/31779995/how-to-give-custom-name-to-images-when-downloading-through-scrapy
 class MyImagesPipeline(ImagesPipeline):
-    def item_completed(self, results, item, info):
+    def get_media_requests(self, item, info):
+        for image_url in item['image_urls']:
+            yield scrapy.Request(image_url, meta={
+                'image_directory_name': item["image_directory_name"],
+                'title': item["title"],
+            })
 
-        # DL できたファイルのパス
-        file_paths = [x['path'] for ok, x in results if ok]
-
-        # ドメインごとのフォルダに move
-        for file_path in file_paths:
-            img_home = IMAGES_STORE
-            full_path = img_home + "/" + file_path
-            domain_home = img_home + "/" + item['domain']
-
-            os.makedirs(domain_home, exist_ok=True)
-            # DL した結果同じファイルのことがある
-            if os.path.exists(domain_home + '/' + os.path.basename(full_path)):
-                continue
-            shutil.move(full_path, domain_home)
-
-        # parse() の続きに戻る
-        return item
+    def image_downloaded(self, response, request, info):
+        checksum = None
+        for path, image, buf in self.get_images(response, request, info):
+            if checksum is None:
+                buf.seek(0)
+                checksum = md5sum(buf)
+            width, height = image.size
+            filename = response.meta['title'] + '.jpg'
+            path = 'full/%s/%s' % (response.meta['image_directory_name'], filename)
+            self.store.persist_file(
+                path, buf, info,
+                meta={'width': width, 'height': height})
+        return checksum
